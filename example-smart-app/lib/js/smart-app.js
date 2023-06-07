@@ -26,39 +26,6 @@ console.log("Checking fhir.");
             $('#cloud-next-data').show();
         }).catch(function(err) {});
     });
-
-    $('#get-discovery-service').click(function() {
-          console.log("Calling discovery service.");
-            $('#cloud-next-loading').removeClass('d-none');
-            $('#cloud-next-loading').show();
-            $('#cloud-next-data').hide();
-            fetch("https://codetogo.io/api/users.xml", {
-                method: "GET",
-                mode: 'no-cors',
-                headers: {
-                    'user-agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36',
-                    'Access-Control-Allow-Origin' : '*'
-                }
-            })
-            .then(response => response.text())
-             .then(data => {
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(data, "application/xml");
-                console.log("converted xml");
-                console.log(xml);
-              })
-            .then(function(getCodingData) {
-                return getCodingData;
-            }).then(function(parsedGetCodingData) {
-            console.log(parsedGetCodingData);
-                $('#json-input1').val(JSON.stringify(parsedGetCodingData, null, 4));
-                $('#cloud-next-data').removeClass('d-none');
-                $('#cloud-next-loading').hide();
-                $('#get-coding-reactor-btn').prop('disabled', false);
-                $('#cloud-next-data').show();
-            }).catch(function(err) {});
-    });
-
     $('#refresh-btn').click(function () {
       client.refresh().then(console.log).catch(console.error);
     });
